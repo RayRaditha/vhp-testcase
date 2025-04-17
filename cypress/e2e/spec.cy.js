@@ -15,7 +15,6 @@ describe('TC002 - User succesfully create guest profile', () => {
     cy.get('[data-cy="password-input-login"]').type('test123');
     cy.get('[data-cy="captcha-input-login"]').type('A3b9Z1');
     cy.contains('span','Log in').click();
-    cy.contains('span','Close').click();
     // Click FO Reception Module
     cy.contains('span', 'Front Office Reception').click();
     // Click Menu Button
@@ -47,7 +46,6 @@ describe('TC003 - User attempt to create a guest profile without filling require
     cy.get('[data-cy="password-input-login"]').type('test123');
     cy.get('[data-cy="captcha-input-login"]').type('A3b9Z1');
     cy.contains('span','Log in').click();
-    cy.contains('span','Close').click();
     // Click FO Reception Module
     cy.contains('span', 'Front Office Reception').click();
     // Click Menu Button
@@ -78,7 +76,6 @@ describe('TC004 - User attempt to create a guest profile using numeric last name
     cy.get('[data-cy="password-input-login"]').type('test123');
     cy.get('[data-cy="captcha-input-login"]').type('A3b9Z1');
     cy.contains('span','Log in').click();
-    cy.contains('span','Close').click();
     // Click FO Reception Module
     cy.contains('span', 'Front Office Reception').click();
     // Click Menu Button
@@ -110,7 +107,6 @@ describe('TC005 - User enter an invalid last name format (using special characte
     cy.get('[data-cy="password-input-login"]').type('test123');
     cy.get('[data-cy="captcha-input-login"]').type('A3b9Z1');
     cy.contains('span','Log in').click();
-    cy.contains('span','Close').click();
     // Click FO Reception Module
     cy.contains('span', 'Front Office Reception').click();
     // Click Menu Button
@@ -132,7 +128,6 @@ describe('TC006 - User enter over-limit characters in Last Name field (e.g. > 35
     cy.get('[data-cy="password-input-login"]').type('test123');
     cy.get('[data-cy="captcha-input-login"]').type('A3b9Z1');
     cy.contains('span','Log in').click();
-    cy.contains('span','Close').click();
     // Click FO Reception Module
     cy.contains('span', 'Front Office Reception').click();
     // Click Menu Button
@@ -154,7 +149,6 @@ describe('TC007 - User leave optional field empty and attempt to create guest pr
     cy.get('[data-cy="password-input-login"]').type('test123');
     cy.get('[data-cy="captcha-input-login"]').type('A3b9Z1');
     cy.contains('span','Log in').click();
-    cy.contains('span','Close').click();
     // Click FO Reception Module
     cy.contains('span', 'Front Office Reception').click();
     // Click Menu Button
@@ -185,7 +179,6 @@ describe('TC008 - User can cancel guest profile creation', () => {
     cy.get('[data-cy="password-input-login"]').type('test123');
     cy.get('[data-cy="captcha-input-login"]').type('A3b9Z1');
     cy.contains('span','Log in').click();
-    cy.contains('span','Close').click();
     // Click FO Reception Module
     cy.contains('span', 'Front Office Reception').click();
     // Click Menu Button
@@ -216,7 +209,6 @@ describe('TC009 - User check if profile data persists after page refresh', () =>
     cy.get('[data-cy="password-input-login"]').type('test123');
     cy.get('[data-cy="captcha-input-login"]').type('A3b9Z1');
     cy.contains('span','Log in').click();
-    cy.contains('span','Close').click();
     // Click FO Reception Module
     cy.contains('span', 'Front Office Reception').click();
     // Click Menu Button
@@ -225,5 +217,36 @@ describe('TC009 - User check if profile data persists after page refresh', () =>
     cy.contains('a', 'Guest Profile').click();
     // Click Refresh Button
     cy.get('[data-cy="btn-refresh-table"]').click();
+  })
+})
+
+describe('TC010 - User successfully create guest profile using the same Last Name & First Name', () => {
+  it('PASSED', () => {
+    cy.visit('https://e1-vhp.com/');
+    cy.get('[data-cy="username-input-login"]').type('qctest@qcbali03');
+    cy.get('[data-cy="password-input-login"]').type('test123');
+    cy.get('[data-cy="captcha-input-login"]').type('A3b9Z1');
+    cy.contains('span','Log in').click();
+    // Click FO Reception Module
+    cy.contains('span', 'Front Office Reception').click();
+    // Click Menu Button
+    cy.get('[data-cy="menu-apps-button"]').click();
+    // Click Guest Profile
+    cy.contains('a', 'Guest Profile').click();
+    // Click Add Button
+    cy.get('[data-cy="btn-add-individual"]').click();
+    // Input Lastname & Firstname
+    cy.get('[data-cy="lastname-input-individual"]').type('tester');
+    cy.get('[data-cy="firstname-input-individual"]').type('user');
+    // Choose Title
+    cy.get('input[data-cy="title-input-individual"]').click({ force: true });
+    cy.get('input[data-cy="title-input-individual"]').type('MR', { force: true });
+    cy.contains('[role="option"]', 'MR').click();
+    // Choose Gender
+    cy.get('input[data-cy="gender-input-individual"]').click({ force: true });
+    cy.get('input[data-cy="gender-input-individual"]').type('Male', { force: true });
+    cy.contains('[role="option"]', 'Male').click();
+    cy.contains('span', 'Save').click();
+    cy.contains('button', 'Yes').click();
   })
 })
